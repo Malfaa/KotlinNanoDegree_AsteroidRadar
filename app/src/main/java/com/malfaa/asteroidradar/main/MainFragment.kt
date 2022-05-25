@@ -34,13 +34,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = MainAdapter(MainAdapter.AsteroidListener{
-
+        val adapter = MainAdapter(MainAdapter.AsteroidListener { asteroidId ->
+            viewModel.onAsteroidItemClick(asteroidId)
         })
-
-//        MainAdapter.AsteroidListener { asteroidId ->
-//            viewModel.onAsteroidItemClick(asteroidId)
-//        })
 
         binding.asteroidRecycler.adapter = adapter
 
@@ -48,10 +44,10 @@ class MainFragment : Fragment() {
             adapter.submitList(it)
         }
 
-        viewModel.asteroidId.observe(viewLifecycleOwner){
+        viewModel.navigateAsteroid.observe(viewLifecycleOwner){
             asteroid ->
-            this.findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid))
-            viewModel.onAsteroidClicked()
+            this.findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid!!))
+            viewModel.onAsteroidNavigated()
         }
 
     }

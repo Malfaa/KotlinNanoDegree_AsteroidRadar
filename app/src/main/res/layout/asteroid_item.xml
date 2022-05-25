@@ -4,14 +4,17 @@
 
     <data>
         <variable
-            name="adapter"
-            type="com.malfaa.asteroidradar.BindingAdaptersKt" />
+            name="clickListener"
+            type="com.malfaa.asteroidradar.main.MainAdapter.AsteroidListener" />
+        <variable
+            name="asteroid"
+            type="com.malfaa.asteroidradar.room.Asteroid" />
     </data>
 
-<!-- databinding   -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/colorPrimary"
         android:layout_margin="@dimen/item_text_margin"
+        android:onClick="@{() -> clickListener.onClick(asteroid)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -22,8 +25,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_text_margin"
             android:layout_marginTop="@dimen/item_text_margin"
+            android:text="@{asteroid.codename}"
+            android:hint="@string/name"
+            android:textColorHint="@color/text_grey"
             style="@style/item_texts"
-            android:text="@string/name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_text_margin"
             android:layout_marginBottom="@dimen/item_text_margin"
-            android:text="@string/date"
+            android:text="@{asteroid.closeApproachDate.toString()}"
+            android:hint="@string/date"
+            android:textColorHint="@color/text_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/codename"
             app:layout_constraintTop_toBottomOf="@+id/codename" />
@@ -44,7 +51,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_status_normal"
             app:layout_constraintBottom_toBottomOf="@+id/date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/codename"

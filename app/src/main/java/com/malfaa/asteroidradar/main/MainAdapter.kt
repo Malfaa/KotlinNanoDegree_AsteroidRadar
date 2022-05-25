@@ -9,19 +9,18 @@ import com.malfaa.asteroidradar.R
 import com.malfaa.asteroidradar.databinding.AsteroidItemBinding
 import com.malfaa.asteroidradar.room.Asteroid
 
-class MainAdapter(val clickListener: AsteroidListener): ListAdapter<Asteroid, MainAdapter.ViewHolder>(DiffCallback()){
+class MainAdapter(private val clickListener: AsteroidListener): ListAdapter<Asteroid, MainAdapter.ViewHolder>(DiffCallback()){
 
     class ViewHolder(private val binding: AsteroidItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(item: Asteroid){
-            binding.codename.text = item.codename
-            binding.date.text = item.distanceFromEarth.toString()
+        fun bind(item: Asteroid, clickListener: AsteroidListener){
+            binding.asteroid = item
             binding.hazardImage.apply {
                 when(item.isPotentiallyHazardous){ //todo test
                     true -> this.setImageResource(R.drawable.ic_status_potentially_hazardous)
                     false -> this.setImageResource(R.drawable.ic_status_normal)
 
                 }                }
-
+            binding.clickListener = clickListener
             binding.executePendingBindings()
             }
         }
@@ -40,8 +39,7 @@ class MainAdapter(val clickListener: AsteroidListener): ListAdapter<Asteroid, Ma
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        holder.bind(getItem(position), clickListener)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Asteroid>(){
@@ -54,8 +52,8 @@ class MainAdapter(val clickListener: AsteroidListener): ListAdapter<Asteroid, Ma
         }
     }
 
-    class AsteroidListener(val clickListener: (asteroid: Long) -> Unit) {
-        fun onClick(asteroid: Asteroid) = clickListener(asteroid.id)
+    class AsteroidListener(val clickListener: (asteroid: Asteroid) -> Unit) {
+        fun onClick(asteroid: Asteroid) = clickListener(asteroid)
     }
 
 }

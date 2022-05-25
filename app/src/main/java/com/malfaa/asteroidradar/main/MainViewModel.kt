@@ -12,13 +12,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val asteroidList: LiveData<List<Asteroid>>
         get() = _asteroidsList
 
-    private val _asteroidClicked = MutableLiveData<Boolean>()
-    val asteroidClicked : LiveData<Boolean>
-        get() = _asteroidClicked
+    private val _navigateAsteroid = MutableLiveData<Asteroid?>()
+    val navigateAsteroid
+        get() = _navigateAsteroid
 
-    private val _asteroidId = MutableLiveData<Asteroid>()
-    val asteroidId : LiveData<Asteroid>
-        get() = _asteroidId
+    fun onAsteroidItemClick(id: Asteroid){
+        _navigateAsteroid.value = id
+    }
 
 //    fun setDataListAsteroids(){ fixme fix here and repo
 //        viewModelScope.launch {
@@ -27,11 +27,11 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 //    }
 
 
-    fun onAsteroidClicked(){
-        _asteroidClicked.value = true
+    fun onAsteroidNavigated(){
+        _navigateAsteroid.value = null
     }
 
-    fun onAsteroidClickedReturned(){
-        _asteroidClicked.value = false
-    }
 }
+
+// TODO: DIA 1 -> VER API RESTFUL E ETENTENDER O CONCEITO NOVAMENTE
+// TODO: DIA 2 -> IMPLEMENTAR A API E COLOCAR CACHING NO DATABASE ROOM
