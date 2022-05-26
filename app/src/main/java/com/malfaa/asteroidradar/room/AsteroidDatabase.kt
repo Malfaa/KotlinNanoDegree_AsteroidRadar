@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.malfaa.asteroidradar.Data
+import com.malfaa.asteroidradar.DataConstants
 
 @Database(entities = [Asteroid::class], version = 1, exportSchema = false)
 abstract class AsteroidDatabase: RoomDatabase() {
@@ -21,7 +21,7 @@ abstract class AsteroidDatabase: RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         AsteroidDatabase::class.java,
-                        Data.DATABASE)
+                        DataConstants.DATABASE)
                         .build()
                 }
             }
