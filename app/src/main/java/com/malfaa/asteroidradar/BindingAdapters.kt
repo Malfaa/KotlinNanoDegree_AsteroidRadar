@@ -2,7 +2,9 @@ package com.malfaa.asteroidradar
 
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import com.squareup.picasso.Picasso
 
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
@@ -41,6 +43,10 @@ fun bindTextViewToDisplayVelocity(textView: TextView, number: Double) {
 }
 
 @BindingAdapter("imagePictureOfDay")
-fun bindPictureOfDayImageView(imageView: ImageView){
-
+fun bindPictureOfDayImageView(imageView: ImageView, imgUrl : String?){
+    imgUrl?.let {
+        Picasso.with(imageView.context)
+            .load(imgUrl)
+            .into(imageView)
+    }
 }

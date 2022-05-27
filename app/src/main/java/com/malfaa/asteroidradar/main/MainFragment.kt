@@ -7,26 +7,38 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.malfaa.asteroidradar.R
 import com.malfaa.asteroidradar.databinding.FragmentMainBinding
+import com.malfaa.asteroidradar.room.AsteroidDatabase
+import com.malfaa.asteroidradar.room.Repository
 
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private lateinit var viewModel: MainViewModel
+    private lateinit var factory: MainViewModelFactory
 
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
-    }
+//    private val viewModel: MainViewModel by lazy {
+//        ViewModelProvider(this)[MainViewModel::class.java]
+//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
         binding = FragmentMainBinding.inflate(inflater)
 
+//        val application = requireNotNull(this.activity).application
+        val dataSource = AsteroidDatabase.getInstance(/*application*/requireContext()).dao
+        factory = MainViewModelFactory(Repository(dataSource) )
+        viewModel = ViewModelProvider(this, this.factory)[MainViewModel::class.java]
+
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.viewModel = viewModel
 
         setHasOptionsMenu(true)
+
+        viewModel.getAsteroids()
+        viewModel.getAPOD() // FIXME: aqui pode dar errado
 
         return binding.root
     }
@@ -35,16 +47,16 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = MainAdapter(MainAdapter.AsteroidListener { asteroidId ->
-            viewModel.onAsteroidItemClick(asteroidId)
+            viewModel.onAsteroidToDetailArguments(asteroidId)
         })
 
         binding.asteroidRecycler.adapter = adapter
 
-        viewModel.asteroidList.observe(viewLifecycleOwner){
+        viewModel.listOfAsteroids.observe(viewLifecycleOwner){
             adapter.submitList(it)
         }
 
-        viewModel.navigateAsteroid.observe(viewLifecycleOwner){
+        viewModel.navigateToAsteroidDetail.observe(viewLifecycleOwner){
             asteroid ->
             this.findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid!!))
             viewModel.onAsteroidNavigated()

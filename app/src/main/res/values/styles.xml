@@ -13,4 +13,9 @@
         <item name="android:textSize">@dimen/item_text_size</item>
     </style>
 
+    <style name="apod_title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/title_apod_size</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

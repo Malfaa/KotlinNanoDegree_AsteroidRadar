@@ -6,56 +6,53 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.malfaa.asteroidradar.PictureOfDay
-import com.malfaa.asteroidradar.api.AsteroidApi
 import com.malfaa.asteroidradar.room.Asteroid
 import com.malfaa.asteroidradar.room.Repository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import javax.security.auth.callback.Callback
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    private val _asteroidsList = MutableLiveData<List<Asteroid>>()
-    val asteroidList: LiveData<List<Asteroid>>
-        get() = _asteroidsList
+    private val _listOfAsteroids = MutableLiveData<List<Asteroid>>()
+    val listOfAsteroids: LiveData<List<Asteroid>>
+        get() = _listOfAsteroids
 
-    private val _navigateAsteroid = MutableLiveData<Asteroid?>()
-    val navigateAsteroid
-        get() = _navigateAsteroid
+    private val _navigateToAsteroidDetail = MutableLiveData<Asteroid?>()
+    val navigateToAsteroidDetail
+        get() = _navigateToAsteroidDetail
 
-    private val _apod = MutableLiveData<PictureOfDay>()
-    val apod: LiveData<PictureOfDay>
-        get() = _apod
+    private val _astronomicalPictureOfDay = MutableLiveData<PictureOfDay>()
+    val astronomicalPictureOfDay: LiveData<PictureOfDay>
+        get() = _astronomicalPictureOfDay
 
 
-    fun onAsteroidItemClick(id: Asteroid){
-        _navigateAsteroid.value = id
+    fun onAsteroidToDetailArguments(id: Asteroid){
+        _navigateToAsteroidDetail.value = id
     }
 
-//    fun setDataListAsteroids(){ fixme fix here and repo
-//        viewModelScope.launch {
-//            _asteroidsList.value = repository.getAllAsteroids()
-//        }
-//    }
+    fun getAsteroids(){
+        viewModelScope.launch {
+            try{
+                _listOfAsteroids.value = repository.teste()
+            }catch (e:Exception){
+                Log.e("Error on Asteroids", e.toString())
+            }
+        }
+    }
 
-//    private fun retrieveOnlineData(){
-//        AsteroidApi.retrofitService.getAsteroids().enqueue(object : Callback<String> {
-//
-//        })
-//    }
-
-    private fun getAPOD(){
+    fun getAPOD(){
         viewModelScope.launch {
             try {
-                _apod.value = repository.getAPOD()
+                _astronomicalPictureOfDay.value = repository.getAPOD()
             }catch (e: Exception){
-                Log.e("Error", e.toString())
+                Log.e("Error on APOD", e.toString())
             }
         }
     }
 
 
     fun onAsteroidNavigated(){
-        _navigateAsteroid.value = null
+        _navigateToAsteroidDetail.value = null
     }
 
 }
