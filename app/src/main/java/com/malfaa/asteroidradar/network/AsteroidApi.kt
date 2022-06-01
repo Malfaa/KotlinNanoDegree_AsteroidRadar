@@ -24,7 +24,7 @@ object AsteroidApi {
 
     suspend fun getPictureOfTheDay() = retrofitService.getPictureDay(Constants.API_KEY)
 
-    suspend fun getAllAsteroids(): List<Asteroid> {
+    suspend fun getAsteroidsFromNetwork(): List<Asteroid> {
         val getStringJson : String = retrofitService.getAsteroids("", "", Constants.API_KEY)
         val jsonObject = JSONObject(getStringJson)
         return parseAsteroidsJsonResult(jsonObject)

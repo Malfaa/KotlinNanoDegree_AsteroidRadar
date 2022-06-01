@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AsteroidDao {
     @Query("SELECT * FROM ${DataConstants.ENTITY} ORDER BY closeApproachDate")
-    fun listOfAsteroids() : List<Asteroid>
+    fun listOfAsteroids() : LiveData<List<Asteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun adicionarAsteroidData(list: List<Asteroid>)

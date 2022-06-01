@@ -22,8 +22,7 @@ class MainFragment : Fragment() {
 
         binding = FragmentMainBinding.inflate(inflater)
 
-//        val application = requireNotNull(this.activity).application
-        val dataSource = AsteroidDatabase.getInstance(/*application*/requireContext()).dao
+        val dataSource = AsteroidDatabase.getInstance(requireContext().applicationContext).dao
         factory = MainViewModelFactory(Repository(dataSource) )
         viewModel = ViewModelProvider(this, this.factory)[MainViewModel::class.java]
 
@@ -40,7 +39,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = MainAdapter(MainAdapter.AsteroidListener { asteroidId ->
-            viewModel.onAsteroidToDetailArguments(asteroidId) // FIXME: corrigir aqui
+            viewModel.onAsteroidToDetailArguments(asteroidId)
         })
 
         binding.asteroidRecycler.adapter = adapter

@@ -33,7 +33,9 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        findNavController().navigateUp() //fixme descobrir pq não retorna quando clicado o back button
+//        requireActivity().onBackPressed().let {
+//            findNavController().navigateUp()
+//        } //fixme descobrir pq não retorna quando clicado o back button
 
     }
 

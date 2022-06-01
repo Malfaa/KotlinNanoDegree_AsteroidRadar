@@ -12,9 +12,11 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    private val _listOfAsteroids = MutableLiveData<List<Asteroid>>()
-    val listOfAsteroids: LiveData<List<Asteroid>>
-        get() = _listOfAsteroids
+//    private val _listOfAsteroids = MutableLiveData<List<Asteroid>>()
+//    val listOfAsteroids: LiveData<List<Asteroid>>
+//        get() = _listOfAsteroids
+
+    val listOfAsteroids = repository.allAsteroids
 
     private val _navigateToAsteroidDetail = MutableLiveData<Asteroid?>()
     val navigateToAsteroidDetail: LiveData<Asteroid?>
@@ -32,23 +34,23 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     init {
         getAPOD()
         insertAsteroids()
-        getAsteroids()
+//        getAsteroids()
     }
 
-    private fun getAsteroids(){
-        viewModelScope.launch {
-            try{
-                _listOfAsteroids.value = repository.getAllAsteroids()
-            }catch (e:Exception){
-                Log.e("Error on Asteroids GET", e.toString())
-            }
-        }
-    }
+//    private fun getAsteroids(){
+//        viewModelScope.launch {
+//            try{
+//                _listOfAsteroids.value = repository.allAsteroids()
+//            }catch (e:Exception){
+//                Log.e("Error on Asteroids GET", e.toString())
+//            }
+//        }
+//    }
 
     private fun insertAsteroids(){
         viewModelScope.launch {
             try{
-                repository.insertAllAsteroids()
+                repository.insertNewAsteroids()
             }catch (e:Exception){
                 Log.e("Error on Asteroids INSE", e.toString())
             }
