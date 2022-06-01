@@ -1,31 +1,25 @@
 package com.malfaa.asteroidradar.room
 
-import androidx.lifecycle.LiveData
 import com.malfaa.asteroidradar.PictureOfDay
-import com.malfaa.asteroidradar.api.AsteroidApi
+import com.malfaa.asteroidradar.network.AsteroidApi
+import com.malfaa.asteroidradar.network.asAsteroidDomain
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class Repository(private val dao: AsteroidDao) {
 
-    suspend fun getAllAsteroids(): Flow<List<Asteroid>> {
+    suspend fun getAllAsteroids(): List<Asteroid> {
         return withContext(Dispatchers.IO) {
              dao.listOfAsteroids()
-        } // FIXME: fix here
-    }
-
-    suspend fun teste(): List<Asteroid>{
-        return withContext(Dispatchers.IO) {
-             AsteroidApi.getAllAsteroids()
         }
     }
 
-//    suspend fun insertAllAsteroids(list: List<Asteroid>){
-//        withContext(Dispatchers.IO){
-//            dao.adicionarAsteroidData(AsteroidApi.getAllAsteroids())
-//        }
-//    }
+    suspend fun insertAllAsteroids(){ //todo see where can i insert this func
+        withContext(Dispatchers.IO){
+            val asteroids = AsteroidApi.getAllAsteroids()
+            dao.adicionarAsteroidData(asteroids)//.asAsteroidDomain()
+        }
+    }
 
     suspend fun getAPOD(): PictureOfDay{
         return withContext(Dispatchers.IO){

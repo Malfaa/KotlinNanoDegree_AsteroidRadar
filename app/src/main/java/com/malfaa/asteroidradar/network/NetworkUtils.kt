@@ -1,4 +1,4 @@
-package com.malfaa.asteroidradar.api
+package com.malfaa.asteroidradar.network
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -63,6 +63,7 @@ private fun getNextSevenDaysFormattedDates(): ArrayList<String> {
     return formattedDateList
 }
 
+//todo Understand how to properly use .map()
 fun List<Asteroid>.asAsteroidDomain():List<Asteroid>{
     return map{
         Asteroid(

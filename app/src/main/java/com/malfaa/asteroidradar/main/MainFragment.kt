@@ -17,10 +17,6 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var factory: MainViewModelFactory
 
-//    private val viewModel: MainViewModel by lazy {
-//        ViewModelProvider(this)[MainViewModel::class.java]
-//    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
@@ -37,9 +33,6 @@ class MainFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        viewModel.getAsteroids()
-        viewModel.getAPOD() // FIXME: aqui pode dar errado
-
         return binding.root
     }
 
@@ -47,7 +40,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = MainAdapter(MainAdapter.AsteroidListener { asteroidId ->
-            viewModel.onAsteroidToDetailArguments(asteroidId)
+            viewModel.onAsteroidToDetailArguments(asteroidId) // FIXME: corrigir aqui
         })
 
         binding.asteroidRecycler.adapter = adapter
@@ -58,8 +51,7 @@ class MainFragment : Fragment() {
 
         viewModel.navigateToAsteroidDetail.observe(viewLifecycleOwner){
             asteroid ->
-            this.findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid!!))
-            viewModel.onAsteroidNavigated()
+            findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid!!))
         }
 
     }

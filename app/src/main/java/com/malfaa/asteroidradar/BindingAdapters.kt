@@ -43,10 +43,16 @@ fun bindTextViewToDisplayVelocity(textView: TextView, number: Double) {
 }
 
 @BindingAdapter("imagePictureOfDay")
-fun bindPictureOfDayImageView(imageView: ImageView, imgUrl : String?){
+fun bindPictureOfDayImageView(imageView: ImageView, imgUrl : PictureOfDay?){
     imgUrl?.let {
-        Picasso.with(imageView.context)
-            .load(imgUrl)
-            .into(imageView)
+        if (it.mediaType == "image") {
+            Picasso.with(imageView.context)
+                .load(it.url)
+                .into(imageView)
+
+            val strFormat = imageView.resources.getString(
+                R.string.nasa_picture_of_day_content_description_format)
+            imageView.contentDescription = String.format(strFormat, it.title)
+        }
     }
 }

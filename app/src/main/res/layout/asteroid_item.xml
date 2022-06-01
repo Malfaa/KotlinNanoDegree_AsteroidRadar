@@ -18,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <TextView
             android:id="@+id/codename"
             android:layout_width="wrap_content"
@@ -46,13 +45,11 @@
             app:layout_constraintStart_toStartOf="@+id/codename"
             app:layout_constraintTop_toBottomOf="@+id/codename" />
 
-<!--        usar BindingAdapter pra colocar a imagem-->
         <ImageView
             android:id="@+id/hazard_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-
             app:layout_constraintBottom_toBottomOf="@+id/date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/codename"
