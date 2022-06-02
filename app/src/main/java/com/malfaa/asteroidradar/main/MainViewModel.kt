@@ -12,11 +12,9 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-//    private val _listOfAsteroids = MutableLiveData<List<Asteroid>>()
-//    val listOfAsteroids: LiveData<List<Asteroid>>
-//        get() = _listOfAsteroids
-
     val listOfAsteroids = repository.allAsteroids
+
+    val todayListOfAsteroids = repository.allTodayAsteroids
 
     private val _navigateToAsteroidDetail = MutableLiveData<Asteroid?>()
     val navigateToAsteroidDetail: LiveData<Asteroid?>
@@ -34,18 +32,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     init {
         getAPOD()
         insertAsteroids()
-//        getAsteroids()
     }
-
-//    private fun getAsteroids(){
-//        viewModelScope.launch {
-//            try{
-//                _listOfAsteroids.value = repository.allAsteroids()
-//            }catch (e:Exception){
-//                Log.e("Error on Asteroids GET", e.toString())
-//            }
-//        }
-//    }
 
     private fun insertAsteroids(){
         viewModelScope.launch {
@@ -67,12 +54,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-
-    fun onAsteroidNavigated(){
+    fun navigationTerminated(){
         _navigateToAsteroidDetail.value = null
     }
 
 }
-
-// TODO: DIA 1 -> VER API RESTFUL E ENTENDER O CONCEITO NOVAMENTE
-// TODO: DIA 2 -> IMPLEMENTAR A API E COLOCAR CACHING NO DATABASE ROOM

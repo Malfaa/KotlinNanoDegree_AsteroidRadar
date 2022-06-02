@@ -63,7 +63,6 @@ private fun getNextSevenDaysFormattedDates(): ArrayList<String> {
     return formattedDateList
 }
 
-//todo Understand how to properly use .map() ... basically it is a converter, in this case this map convert network 'types' to database type
 fun List<Asteroid>.asAsteroidDomain():List<Asteroid>{
     return map{
         Asteroid(

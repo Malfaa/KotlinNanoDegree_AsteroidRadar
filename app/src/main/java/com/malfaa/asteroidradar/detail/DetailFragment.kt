@@ -29,16 +29,6 @@ class DetailFragment : Fragment() {
 
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        requireActivity().onBackPressed().let {
-//            findNavController().navigateUp()
-//        } //fixme descobrir pq não retorna quando clicado o back button
-
-    }
-
     private fun displayAstronomicalUnitExplanationDialog() {
         val builder = AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.astronomica_unit_explanation))
@@ -46,5 +36,3 @@ class DetailFragment : Fragment() {
         builder.create().show()
     }
 }
-
-// TODO: Colocar contentdescription

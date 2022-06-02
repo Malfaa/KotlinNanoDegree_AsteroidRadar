@@ -14,12 +14,6 @@ class MainAdapter(private val clickListener: AsteroidListener): ListAdapter<Aste
     class ViewHolder(private val binding: AsteroidItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: Asteroid, clickListener: AsteroidListener){
             binding.asteroid = item
-            binding.hazardImage.apply {
-                when(item.isPotentiallyHazardous){ //todo test
-                    true -> this.setImageResource(R.drawable.ic_status_potentially_hazardous)
-                    false -> this.setImageResource(R.drawable.ic_status_normal)
-
-                }                }
             binding.clickListener = clickListener
             binding.executePendingBindings()
             }

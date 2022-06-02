@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="clickListener"
+            type="com.malfaa.asteroidradar.main.MainAdapter.AsteroidListener" />
+        <variable
+            name="asteroid"
+            type="com.malfaa.asteroidradar.room.Asteroid" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/colorPrimary"
+            android:layout_margin="@dimen/item_text_margin"
+            android:layout_gravity="center"
+            android:minWidth="@dimen/max_lenght"
+            android:onClick="@{() -> clickListener.onClick(asteroid)}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/codename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/item_text_margin"
+                android:layout_marginTop="@dimen/item_text_margin"
+                android:text="@{asteroid.codename}"
+                android:hint="@string/name"
+                android:textColorHint="@color/text_grey"
+                style="@style/item_texts_sw600"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/date"
+                style="@style/item_texts_sw600"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_text_margin"
+                android:layout_marginBottom="@dimen/item_text_margin"
+                android:text="@{asteroid.closeApproachDate.toString()}"
+                android:hint="@string/date"
+                android:textColorHint="@color/text_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/codename"
+                app:layout_constraintTop_toBottomOf="@+id/codename" />
+
+            <ImageView
+                android:id="@+id/hazard_image"
+                android:layout_width="@dimen/status_icon_sw600"
+                android:layout_height="@dimen/status_icon_sw600"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/codename"
+                app:srcCompat="@drawable/ic_status_normal"
+                app:statusIcon="@{asteroid.potentiallyHazardous}"
+                android:contentDescription="@string/not_hazardous_asteroid_image" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</layout>

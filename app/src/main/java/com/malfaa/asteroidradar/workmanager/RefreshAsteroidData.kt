@@ -17,6 +17,7 @@ class RefreshAsteroidData(context: Context, params: WorkerParameters): Coroutine
         val repository = Repository(database.dao)
 
         return try {
+            repository.deletePreviousAsteroids()
             repository.insertNewAsteroids()
             Result.success()
         }catch (e:Exception){

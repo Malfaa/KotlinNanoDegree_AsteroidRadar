@@ -16,6 +16,7 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var factory: MainViewModelFactory
+    private lateinit var adapter: MainAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -38,7 +39,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = MainAdapter(MainAdapter.AsteroidListener { asteroidId ->
+        adapter = MainAdapter(MainAdapter.AsteroidListener { asteroidId ->
             viewModel.onAsteroidToDetailArguments(asteroidId)
         })
 
@@ -50,7 +51,10 @@ class MainFragment : Fragment() {
 
         viewModel.navigateToAsteroidDetail.observe(viewLifecycleOwner){
             asteroid ->
-            findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid!!))
+            asteroid?.let {
+                findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid))
+                viewModel.navigationTerminated()
+            }
         }
 
     }
@@ -61,6 +65,17 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.show_all_menu -> viewModel.listOfAsteroids.observe(viewLifecycleOwner) {
+                adapter.submitList(it)
+            }
+            R.id.show_today_menu -> viewModel.todayListOfAsteroids.observe(viewLifecycleOwner){
+                adapter.submitList(it)}
+
+            R.id.show_saved_menu -> viewModel.listOfAsteroids.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+            }
+        }
         return true
     }
 }

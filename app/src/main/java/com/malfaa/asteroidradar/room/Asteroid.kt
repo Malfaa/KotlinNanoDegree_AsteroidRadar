@@ -3,11 +3,11 @@ package com.malfaa.asteroidradar.room
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.malfaa.asteroidradar.DataConstants
+import com.malfaa.asteroidradar.Constants
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = DataConstants.ENTITY)
+@Entity(tableName = Constants.ENTITY)
 data class Asteroid(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
