@@ -14,6 +14,6 @@ object Constants {
     const val END_DATE_PARAM = "end_date"
     const val API_KEY_PARAM = "api_key"
 
-    const val API_KEY = "DEMO_KEY"
+    const val API_KEY = "byOtjn5M1h40CiiXhYA3zQQjdQXEoylcBcHbH7Zn" //DEMO_KEY
 
 }

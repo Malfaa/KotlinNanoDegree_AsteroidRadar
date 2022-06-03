@@ -19,7 +19,7 @@
     <string name="not_hazardous_asteroid_image">Imagem de asteroide não perigoso</string>
     <string name="this_is_nasa_s_picture_of_day_showing_nothing_yet">Esta é a foto do dia da NASA, mostrando nada ainda</string>
     <string name="nasa_picture_of_day_content_description_format">Foto do dia da NASA: %s</string>
-    <string name="api">byOtjn5M1h40CiiXhYA3zQQjdQXEoylcBcHbH7Zn</string>
+
     <string name="name">asteroide</string>
-    <string name="date">10-10-2022</string>
+    <string name="date">10–10–2022</string>
 </resources>

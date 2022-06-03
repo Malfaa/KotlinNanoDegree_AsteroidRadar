@@ -29,7 +29,7 @@
             tools:srcCompat="@drawable/asteroid_safe"
             android:contentDescription="@string/not_hazardous_asteroid_image"/>
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/fragment_text_margin"
@@ -166,7 +166,7 @@
                     tools:text="0.0924 au" />
 
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
